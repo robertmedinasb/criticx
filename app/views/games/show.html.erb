@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @game.name %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @game.description %>
+</p>
+<p>
+  <strong>Price:</strong>
+  <%= @game.price %>
+</p>
+<p>
+  <strong>Release date:</strong>
+  <%= @game.release_date %>
+</p>
+<p>
+  <strong>Company:</strong>
+  <%= Company.find(@game.company_id).name %>
+</p>
+<p>
+  <% count = 0 %>
+  <% Critic.all.each{|c| count+=1 if c.game_id == @game.id }  %>
+  <strong>Critics (<%= count%>) :</strong>
+  <ul>
+    <% Critic.all.each do |c| %>
+      <li>
+        <%if @game.id == c.game_id  %>
+          <strong><%= "#{c.title} - "  %></strong><span><%=c.username%></span>
+          <p><%= c.body%></p>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</p>
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
